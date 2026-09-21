@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://TU-DOMINIO-AQUI.com/sitemap.xml
+Sitemap: https://tweeeo.github.io/Degradados/sitemap.xml
