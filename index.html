@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
+<title>Degradado desde tu imagen</title>
+<meta name="description" content="Sube una foto y obtén un degradado de dos tonos extraídos de sus colores reales, listo para usar como fondo con texto negro o blanco encima.">
+<link rel="canonical" href="https://TU-DOMINIO-AQUI.com/">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Degradado desde tu imagen">
+<meta property="og:description" content="Sube una foto y obtén un degradado de dos tonos extraídos de sus colores reales, listo para usar como fondo con texto negro o blanco encima.">
+<meta property="og:image" content="assets/social-preview.png">
+<meta property="og:url" content="https://TU-DOMINIO-AQUI.com/">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Degradado desde tu imagen">
+<meta name="twitter:description" content="Sube una foto y obtén un degradado de dos tonos extraídos de sus colores reales.">
+<meta name="twitter:image" content="assets/social-preview.png">
+
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div class="wrap">
+
+  <div class="eyebrow">Laboratorio de color</div>
+  <h1>Degradado desde tu imagen</h1>
+
+  <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="Subir imagen">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 16V4"></path>
+      <path d="M6 10l6-6 6 6"></path>
+      <path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"></path>
+    </svg>
+    <div class="dropzone-title">Suelta una imagen aquí</div>
+    <div class="dropzone-sub">o haz clic, o pega una imagen (Ctrl+V)</div>
+  </div>
+  <input type="file" id="fileInput" accept="image/*">
+
+  <div class="url-divider"><span>o</span></div>
+
+  <form class="url-form" id="urlForm">
+    <input type="url" id="urlInput" placeholder="Pega el link de una imagen" inputmode="url" autocomplete="off" spellcheck="false" required pattern="https?://.+" title="Pega un link que empiece con http:// o https://">
+    <button type="submit" class="btn-tint" id="urlSubmitBtn">Usar imagen</button>
+  </form>
+
+  <div class="error-msg" id="errorMsg"></div>
+
+  <div class="workspace" id="workspace">
+    <div class="toolbar">
+      <button class="btn-ghost" id="reuploadBtn" type="button">Cambiar imagen</button>
+    </div>
+
+    <div class="grid">
+      <div class="preview-card" id="previewCard">
+        <div class="preview-gradient-layer active" id="gradientLayerA"></div>
+        <div class="preview-gradient-layer incoming" id="gradientLayerB"></div>
+
+        <div class="preview-thumb">
+          <img id="previewImg" alt="Imagen subida">
+        </div>
+        <div class="preview-body">
+          <p class="preview-title">Título</p>
+          <p class="preview-artist">Artista</p>
+          <div class="preview-meta">
+            <span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 3"></path></svg>
+              <span id="previewDate"></span>
+            </span>
+            <span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+              <span id="previewViews"></span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="segmented" id="segmented" data-mode="black">
+          <div class="segmented-pill"></div>
+          <button type="button" id="modeBlackBtn" aria-pressed="true">Texto negro</button>
+          <button type="button" id="modeWhiteBtn" aria-pressed="false">Texto blanco</button>
+        </div>
+
+        <div class="action-row">
+          <button class="btn-tint" id="regenerateBtn" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 6h3.2c2.1 0 3.1 1 4.6 3"></path>
+              <path d="M4 18h3.2c2.1 0 3.1-1 4.6-3"></path>
+              <path d="M14.5 6H20"></path>
+              <path d="M14.5 18H20"></path>
+              <path d="M17.5 3.5L20.5 6l-3 2.5"></path>
+              <path d="M17.5 20.5l3-2.5-3-2.5"></path>
+            </svg>
+            Otro
+          </button>
+
+          <button class="btn-tint" id="expandBtn" type="button" aria-pressed="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 4H4v5"></path>
+              <path d="M15 4h5v5"></path>
+              <path d="M4 15v5h5"></path>
+              <path d="M20 15v5h-5"></path>
+            </svg>
+            <span id="expandBtnLabel">Expandir selección</span>
+          </button>
+        </div>
+
+        <div class="variant-label" id="variantLabel"></div>
+
+        <div class="sample-panel">
+          <div class="sample-title">Zonas seleccionadas</div>
+          <div class="sample-frame">
+            <img id="sampleImg" alt="Zonas de la imagen usadas para los colores">
+            <div class="sample-band top" id="sampleBandTop"></div>
+            <div class="sample-band bottom" id="sampleBandBottom"></div>
+          </div>
+        </div>
+
+        <div class="grouped-list">
+          <div class="grouped-row">
+            <div class="swatch" id="swatchTop"></div>
+            <div class="row-info">
+              <div class="row-label">Arriba</div>
+              <div class="row-value" id="hexTop">—</div>
+            </div>
+            <button class="icon-btn" id="copyTop" type="button" aria-label="Copiar color de arriba">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="9" y="9" width="12" height="12" rx="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+            </button>
+          </div>
+          <div class="grouped-row">
+            <div class="swatch" id="swatchBottom"></div>
+            <div class="row-info">
+              <div class="row-label">Abajo</div>
+              <div class="row-value" id="hexBottom">—</div>
+            </div>
+            <button class="icon-btn" id="copyBottom" type="button" aria-label="Copiar color de abajo">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="9" y="9" width="12" height="12" rx="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/color-math.js"></script>
+<script src="js/sampler.js"></script>
+<script src="js/contrast-adjust.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
