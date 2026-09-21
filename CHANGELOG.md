@@ -49,3 +49,16 @@ El archivo monolitico `script.js` (678 lineas, 5 responsabilidades mezcladas) fu
 - `LICENSE` creado con licencia propietaria exclusiva (todos los derechos reservados, prohibida
   la copia, modificacion, distribucion y uso sin permiso expreso)
 - `.gitignore` creado con exclusiones para sistemas operativos, editores, Node.js y builds
+
+---
+
+## [Sin version] - 2026-09-21
+
+### Configuracion del repositorio Git y GitHub Pages
+
+- Repositorio Git inicializado en rama `main`
+- Remote conectado a `https://github.com/tweeeo/Degradados`
+- `.gitattributes` creado para normalizar saltos de linea a LF
+- URLs placeholder `TU-DOMINIO-AQUI.com` reemplazadas por el dominio real de GitHub Pages
+  en `index.html`, `robots.txt` y `sitemap.xml`
+- Sitio publicado en `https://tweeeo.github.io/Degradados/` via GitHub Pages
